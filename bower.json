@@ -9,7 +9,9 @@
   "dependencies": {
     "purescript-prelude": "^4.1.0",
     "purescript-console": "^4.1.0",
-    "purescript-effect": "^2.0.0"
+    "purescript-effect": "^2.0.0",
+    "purescript-foreign": "^5.0.0",
+    "purescript-foreign-generic": "^7.0.0"
   },
   "devDependencies": {}
 }

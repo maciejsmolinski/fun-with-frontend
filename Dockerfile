@@ -14,8 +14,8 @@ RUN mkdir -p /opt \
     && rm /opt/linux64.tar.gz
 
 ENV PATH /opt/purescript:$PATH
-RUN yarn global add psc-package bower pulp parcel
-RUN yarn && psc-package install && bower install --allow-root
+RUN yarn global add bower pulp parcel
+RUN yarn && bower install --allow-root
 RUN pulp build
 
 CMD [ "yarn", "watch" ]

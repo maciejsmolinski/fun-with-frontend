@@ -6,14 +6,14 @@ Languages used in the project:
 
 * PureScript
 * TypeScript
+* ReasonML
 
 ## Installation instructions
 
 ```
-yarn global add purescript psc-package bower pulp parcel
+yarn global add purescript bower pulp parcel bs-platform
 yarn
 bower install
-psc-package install
 ```
 
 ## Running the project
@@ -23,3 +23,8 @@ Run the following to continuously compile the purescript code:
 
 Run the following to continuously compile typescript code and serve the application under `http://localhost:1234`:
 * `parcel serve src/index.html`
+
+## Running the project with Docker
+
+In order to run a docker container serving the application under `http://localhost:4321` run:
+* `docker-compose up`

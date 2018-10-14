@@ -42,7 +42,7 @@ conf' = runExcept $ decodeJSON $ encodeJSON conf
 
 main :: Effect Unit
 main = do
-  plog "Hello sailor!"
+  plog "Welcome message from PureScript"
   plog $ welcome "someone"
   plog $ welcomeImpl "someoneElse"
   plog $ encodeJSON conf

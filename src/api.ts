@@ -8,9 +8,9 @@ export enum Kind {
 const find = (name: string, kind: Kind): Promise<string> => {
   switch (kind) {
     case Kind.Harsh:
-      return Promise.resolve(`Huh, hey ${name}..`);
+      return Promise.resolve(`[TS] Huh, hey ${name}..`);
     default:
-      return Promise.resolve(`Heyy ${name}!`);
+      return Promise.resolve(`[TS] Heyy ${name}!`);
   }
 };
 

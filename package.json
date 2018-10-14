@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "prewatch": "pulp --watch build &",
+    "watch": "parcel src/index.html"
+  },
   "devDependencies": {
     "typescript": "^3.1.3"
   }

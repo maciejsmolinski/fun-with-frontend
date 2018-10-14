@@ -17,6 +17,5 @@ ENV PATH /opt/purescript:$PATH
 RUN yarn global add psc-package bower pulp parcel
 RUN yarn && psc-package install && bower install --allow-root
 RUN pulp build
-RUN pulp --watch build &
 
-CMD [ "parcel", "src/index.html" ]
+CMD [ "yarn", "watch" ]

@@ -5,5 +5,6 @@ services:
     build: './'
     ports:
       - 4321:1234
+      - 44332:44332
     volumes:
       - ./src:/app/src

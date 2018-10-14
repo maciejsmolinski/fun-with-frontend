@@ -9,3 +9,5 @@
 /.psa*
 dist
 .cache
+lib
+*.bs.js

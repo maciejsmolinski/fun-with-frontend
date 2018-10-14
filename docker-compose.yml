@@ -1,0 +1,9 @@
+version: '2.1'
+
+services:
+  web:
+    build: './'
+    ports:
+      - 4321:1234
+    volumes:
+      - ./src:/app/src

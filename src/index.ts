@@ -1,9 +1,8 @@
 import PureScript from '../output/Main';
-import find, { Kind } from './api';
+import TypeScript from './Main.ts';
 import ReasonML from './Main.re';
 
-find("Happy", Kind.Welcoming).then(console.log)
-find("Sad", Kind.Harsh).then(console.log)
 
-PureScript.main();
+TypeScript.main();
 ReasonML.main();
+PureScript.main();

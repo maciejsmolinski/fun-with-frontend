@@ -1,20 +1,20 @@
 type kind =
-  | Welcoming
+  | Happy
   | Neutral;
 
-let welcome = (kind: kind, name: string) =>
+let message = (kind: kind, name: string) =>
   switch (kind) {
-  | Welcoming => {j|Heyy $name!|j}
-  | Neutral => {j|Mhm, hey $name|j}
+  | Happy => {j|Heyy $name!|j}
+  | Neutral => {j|Mhm, hey $name..|j}
   };
 
-let welcoming = welcome(Welcoming);
+let happy = message(Happy);
 
-let neutral = welcome(Neutral);
+let neutral = message(Neutral);
 
 let print = msg => Js.log("[RE] " ++ msg);
 
 let main = () => {
-  welcoming("Stewart") |> print;
+  happy("Stewart") |> print;
   neutral("Stewart") |> print;
 };

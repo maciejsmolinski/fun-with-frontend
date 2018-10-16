@@ -1,26 +1,27 @@
 export enum Kind {
-  Welcoming,
+  Happy,
   Neutral
 }
 
-const welcome = (kind: Kind) => (name: string) => {
+const message = (kind: Kind) => (name: string) => {
   switch (kind) {
+    case Kind.Happy:
+      return `Heyy ${name}!`;
     case Kind.Neutral:
       return `Mhm, hey ${name}..`;
-    case Kind.Welcoming:
-      return `Heyy ${name}!`;
     default:
-      return `Welcome ${name}`;
+      throw new Error(`Unhandled case for kind ${kind}`);
   }
 }
 
-const welcoming = welcome(Kind.Welcoming);
-const neutral = welcome(Kind.Neutral);
+const happy = message(Kind.Happy);
+
+const neutral = message(Kind.Neutral);
 
 const print = (msg) => console.log('[TS] ' + msg);
 
 const main = () => {
-  print(welcoming('Stewart'))
+  print(happy('Stewart'))
   print(neutral('Stewart'))
 }
 

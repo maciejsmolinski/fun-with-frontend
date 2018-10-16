@@ -4,23 +4,22 @@ import Effect (Effect)
 import Effect.Console (log)
 import Prelude ((<>), ($), Unit, discard)
 
-data Kind = Welcoming | Neutral
+data Kind = Happy | Neutral
 
-welcome :: Kind -> String -> String
-welcome Welcoming name = "Heyy " <> name <> "!"
-welcome Neutral name = "Mhm, hey " <> name
+message :: Kind -> String -> String
+message Happy name = "Heyy " <> name <> "!"
+message Neutral name = "Mhm, hey " <> name <> ".."
 
-welcoming :: String -> String
-welcoming = welcome Welcoming
+happy :: String -> String
+happy = message Happy
 
 neutral :: String -> String
-neutral = welcome Neutral
-
+neutral = message Neutral
 
 print :: String -> Effect Unit
 print msg = log $ "[PS] " <> msg
 
 main :: Effect Unit
 main = do
-  print $ welcoming "Stewart"
+  print $ happy "Stewart"
   print $ neutral "Stewart"

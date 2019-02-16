@@ -11,3 +11,4 @@ dist
 .cache
 lib
 *.bs.js
+.merlin

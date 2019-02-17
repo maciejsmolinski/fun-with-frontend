@@ -1,9 +1,11 @@
 module Main where
 
+import Prelude
+
 import Effect (Effect)
 import Effect.Console (log)
-import Prelude ((<>), ($), Unit, discard)
-
+import Tasks (fromJSON, toJSON, toTasks)
+import Type.Data.Boolean (kind Boolean)
 data Kind = Happy | Neutral
 
 message :: Kind -> String -> String
@@ -23,3 +25,7 @@ main :: Effect Unit
 main = do
   print $ happy "Stewart"
   print $ neutral "Stewart"
+  print $ toJSON tasks
+  print $ show $ fromJSON $ toJSON tasks
+  where
+    tasks = toTasks [{ title: "Test", completed: false }]

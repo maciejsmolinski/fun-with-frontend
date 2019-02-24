@@ -1,4 +1,4 @@
-module Todos (fromJSON, toJSON) where
+module Todos (fromJSON, toJSON, Todos) where
 
 import Data.Either (Either)
 import Data.List.Types (NonEmptyList)

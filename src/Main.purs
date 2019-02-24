@@ -6,6 +6,7 @@ import Effect (Effect)
 import Effect.Console (log)
 import Tasks (fromJSON, toJSON, toTasks)
 import Type.Data.Boolean (kind Boolean)
+
 data Kind = Happy | Neutral
 
 message :: Kind -> String -> String

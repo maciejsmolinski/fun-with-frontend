@@ -3,8 +3,10 @@ module Tasks (fromJSON, toJSON, toTasks, Tasks) where
 import Prelude
 
 import Control.Monad.Except (runExcept)
-import Data.Either (either)
+import Data.Either (Either)
 import Data.Generic.Rep (class Generic)
+import Data.List.Types (NonEmptyList)
+import Foreign (ForeignError)
 import Foreign.Class (class Decode, class Encode)
 import Foreign.Generic (decodeJSON, defaultOptions, encodeJSON, genericDecode, genericEncode)
 
@@ -32,11 +34,8 @@ instance showTask :: Show Task where
 instance showTasks :: Show Tasks where
   show a = encodeJSON a
 
-empty :: Tasks
-empty = Tasks []
-
-fromJSON :: String -> Tasks
-fromJSON string = either (const empty) (identity) $ runExcept $ decodeJSON string
+fromJSON :: String -> Either (NonEmptyList ForeignError) Tasks
+fromJSON string = runExcept $ decodeJSON string
 
 toJSON :: Tasks -> String
 toJSON tasks = encodeJSON tasks

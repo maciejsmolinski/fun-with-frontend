@@ -4,7 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Console (log)
-import Tasks (fromJSON, toJSON, toTasks)
+import Tasks as Tasks
+import Todos as Todos
 import Type.Data.Boolean (kind Boolean)
 
 data Kind = Happy | Neutral
@@ -26,7 +27,12 @@ main :: Effect Unit
 main = do
   print $ happy "Stewart"
   print $ neutral "Stewart"
-  print $ toJSON tasks
-  print $ show $ fromJSON $ toJSON tasks
+
+  print $ Tasks.toJSON (Tasks.toTasks items)
+  print $ show $ Tasks.fromJSON json
+  print $ Todos.toJSON items
+  print $ show $ Todos.fromJSON json
+
   where
-    tasks = toTasks [{ title: "Test", completed: false }]
+    items = [{ title: "Test", completed: false }]
+    json = """[{ "title": "test", "completed" : false }]"""

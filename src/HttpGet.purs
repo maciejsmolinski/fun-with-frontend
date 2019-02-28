@@ -1,4 +1,4 @@
-module HttpGet where
+module HttpGet (getTodosAff) where
 
 import Prelude
 
@@ -14,11 +14,11 @@ import Todos (Todos, fromJSON)
 
 getTodosAff :: Aff (Either MultipleErrors (Todos))
 getTodosAff = do
-  result <- get string "http://www.mocky.io/v2/5c74755f2f00002a009641c0"
-  body <- pure result.body
-  pure $ fromJSON $ either (const "") identity body
+  result <- _.body <$> get string "http://www.mocky.io/v2/5c74755f2f00002a009641c0"
+  pure $ fromJSON $ either (const "") identity result
 
-getTodos :: Effect Unit
-getTodos = launchAff_ do
+getAndLogTodos :: Effect Unit
+getAndLogTodos = launchAff_ do
   todos <- getTodosAff
   liftEffect $ logShow todos
+

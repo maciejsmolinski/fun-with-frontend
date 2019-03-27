@@ -2,15 +2,14 @@ module Weather (getAndLogWeather) where
 
 import Prelude
 
-import Affjax (get)
-import Affjax.ResponseFormat (string)
-import Data.Either (Either(..), either)
+import Data.Either (Either(..))
 import Effect (Effect)
 import Effect.Aff (Aff, launchAff_)
 import Effect.Class (liftEffect)
 import Effect.Class.Console (log, logShow)
 import Foreign (MultipleErrors)
 import Simple.JSON as SimpleJSON
+import Utils (fetchString)
 
 type Result a = Either MultipleErrors a
 
@@ -30,6 +29,9 @@ type Weather = Array {
   state :: String
 }
 
+fromJSON :: String -> Result ConsolidatedWeather
+fromJSON = SimpleJSON.readJSON
+
 toWeather :: ConsolidatedWeather -> Weather
 toWeather { consolidated_weather } = weather <$> consolidated_weather
   where
@@ -37,8 +39,7 @@ toWeather { consolidated_weather } = weather <$> consolidated_weather
 
 getWeather :: Aff (Result Weather)
 getWeather = do
-  result <- _.body <$> get string "https://www.metaweather.com/api/location/753692/"
-  pure $ toWeather <$> ((SimpleJSON.readJSON :: String -> Result ConsolidatedWeather) $ either (const "") identity result)
+  (map toWeather) <<< fromJSON <$> (fetchString "https://www.metaweather.com/api/location/753692/")
 
 getAndLogWeather :: Effect Unit
 getAndLogWeather = launchAff_ $ do

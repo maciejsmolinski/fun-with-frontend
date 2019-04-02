@@ -1,6 +1,6 @@
 const http = require('http');
 
-exports.serveStatic = function (port) {
+exports.serveStaticImpl = function (port) {
   return function (message) {
     return function () {
       const server = http.createServer(function (req, res) {
@@ -13,7 +13,7 @@ exports.serveStatic = function (port) {
   }
 }
 
-exports.serveDynamic = function (port) {
+exports.serveDynamicImpl = function (port) {
   return function (callback) {
     return function () {
       const server = http.createServer(callback);

@@ -1,4 +1,6 @@
-module Server (main) where
+module Server where
+
+-- | pulp --watch run -m Server
 
 import Prelude
 
@@ -26,8 +28,11 @@ serveStatic port message = serveStaticImpl port message
 serveDynamic :: Port -> Handler -> Effect Unit
 serveDynamic port handler = serveDynamicImpl port $ mkFn2 handler
 
-
 main :: Effect Unit
-main = serveDynamic 9191 handler
-  where
-    handler req res = (runFn1 res.write $ "Requested path: " <> req.url) *> runFn0 res.end
+main = serveDynamic 9191 app
+
+app ::Handler
+app req res =
+  case req.url of
+    "/app" -> (runFn1 res.write $  "App") *> runFn0 res.end
+    _ -> (runFn1 res.write $ "Requested path: " <> req.url) *> runFn0 res.end

@@ -1,0 +1,15 @@
+version: v1.0
+name: Build Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "PureScript Tests"
+    task:
+      jobs:
+      - name: Pulp Test
+        commands:
+          - checkout
+          - npm install -g purescript bower pulp
+          - pulp test

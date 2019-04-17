@@ -12,4 +12,5 @@ blocks:
         commands:
           - checkout
           - npm install -g purescript bower pulp
+          - bower install
           - pulp test

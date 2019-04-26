@@ -11,20 +11,14 @@ Languages used in the project:
 ## Installation instructions
 
 ```
-yarn global add purescript bower pulp parcel bs-platform
-yarn
-bower install
+npm install
+npm run bower install
 ```
 
 ## Running the project
 
 Run the following to continuously compile the purescript code:
-* `pulp --watch build`
+* `npm run pulp --watch build`
 
 Run the following to continuously compile typescript code and serve the application under `http://localhost:1234`:
-* `parcel serve src/index.html`
-
-## Running the project with Docker
-
-In order to run a docker container serving the application under `http://localhost:4321` run:
-* `docker-compose up`
+* `npm run parcel serve src/index.html`

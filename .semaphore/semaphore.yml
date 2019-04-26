@@ -1,16 +1,40 @@
 version: v1.0
-name: Build Pipeline
+name: Build
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: "PureScript Tests"
+  - name: "Setup"
     task:
-      jobs:
-      - name: Pulp Test
+      prologue:
         commands:
           - checkout
-          - npm install -g purescript bower pulp
-          - bower install
-          - pulp test
+      jobs:
+        - name: "Install NPM & Bower Dependencies"
+          commands:
+            - cache restore node_modules-$SEMAPHORE_GIT_BRANCH-$(checksum package.json),node_modules-$SEMAPHORE_GIT_BRANCH
+            - npm install
+            - cache store node_modules-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) node_modules
+            - cache restore bower_components-$SEMAPHORE_GIT_BRANCH-$(checksum bower.json),bower_components-$SEMAPHORE_GIT_BRANCH
+            - npm run bower install
+            - cache store bower_components-$SEMAPHORE_GIT_BRANCH-$(checksum bower.json) bower_components
+  - name: "Tests"
+    task:
+      prologue:
+        commands:
+          - checkout
+      jobs:
+        - name: "Run PureScript Tests"
+          commands:
+            - cache restore node_modules-$SEMAPHORE_GIT_BRANCH-$(checksum package.json),node_modules-$SEMAPHORE_GIT_BRANCH
+            - cache restore bower_components-$SEMAPHORE_GIT_BRANCH-$(checksum bower.json),bower_components-$SEMAPHORE_GIT_BRANCH
+            - npm run pulp test
+
+promotions:
+  - name: Deploy to surge
+    pipeline_file: _deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - master

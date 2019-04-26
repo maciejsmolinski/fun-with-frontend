@@ -1,0 +1,22 @@
+version: v1.0
+name: Deployment
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "Deployment"
+    task:
+      secrets:
+      - name: fwf-surge
+      prologue:
+        commands:
+          - checkout
+      jobs:
+        - name: Build and deploy to surge.sh
+          commands:
+            - cache restore node_modules-$SEMAPHORE_GIT_BRANCH-$(checksum package.json),node_modules-$SEMAPHORE_GIT_BRANCH
+            - cache restore bower_components-$SEMAPHORE_GIT_BRANCH-$(checksum bower.json),bower_components-$SEMAPHORE_GIT_BRANCH
+            - npm run pulp build
+            - npm run parcel build src/index.html
+            - npm run surge dist fun-with-frontend.surge.sh

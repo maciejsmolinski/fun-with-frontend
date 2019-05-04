@@ -16,7 +16,9 @@
     "purescript-node-fs": "^5.0.0",
     "purescript-affjax": "^8.0.0",
     "purescript-debug": "^4.0.0",
-    "purescript-simple-json": "4.4.0"
+    "purescript-simple-json": "4.4.0",
+    "purescript-web-dom": "^2.0.0",
+    "purescript-web-html": "^2.0.1"
   },
   "devDependencies": {}
 }

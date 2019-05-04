@@ -7,6 +7,7 @@ import Effect.Console (log)
 import Tasks as Tasks
 import Todos as Todos
 import Type.Data.Boolean (kind Boolean)
+import App as App
 
 data Kind = Happy | Neutral
 
@@ -32,6 +33,8 @@ main = do
   print $ show $ Tasks.fromJSON json
   print $ Todos.toJSON items
   print $ show $ Todos.fromJSON json
+
+  App.main
 
   where
     items = [{ title: "Test", completed: false }]

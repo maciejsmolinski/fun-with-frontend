@@ -4,37 +4,41 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Console (log)
-import Location as Location
 import History as History
-
-data Route = Home | NotFound
+import Location as Location
 
 print :: String -> Effect Unit
 print msg = log $ "[PS] " <> msg
 
-route :: String -> Route
-route "/" = Home
-route _ = NotFound
+data Route = Home | NotFound
 
-redirect :: Route -> Effect Unit
-redirect Home = History.setPathName "/"
-redirect _ = pure unit
+toRoute :: String -> Route
+toRoute "/" = Home
+toRoute _ = NotFound
 
 render :: Route -> Effect Unit
-render Home = renderHome
-render NotFound = renderNotFound
+render =
+  case _ of
+    Home -> renderHome
+    NotFound -> renderNotFound
+  where
+    renderHome :: Effect Unit
+    renderHome = print "Home Route"
 
-renderHome :: Effect Unit
-renderHome = do
-  print "Home Route"
+    renderNotFound :: Effect Unit
+    renderNotFound = print "Route Not Found"
 
-renderNotFound :: Effect Unit
-renderNotFound = do
-  print "Route Not Found"
+type App = { onRoute :: String -> Effect Unit }
+
+createApp :: App -> Effect Unit
+createApp app = do
+  path <- Location.getPathName
+  app.onRoute path
 
 main :: Effect Unit
-main = do
-  path <- Location.getPathName
-  case path of
-    "/redirect" -> redirect Home
-    other -> render $ route other
+main = createApp { onRoute }
+ where
+   onRoute = case _ of
+      "/redirect" -> History.setPathName "/"
+      other -> render $ toRoute other
+

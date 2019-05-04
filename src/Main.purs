@@ -3,11 +3,11 @@ module Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Console (log)
 import Tasks as Tasks
 import Todos as Todos
 import Type.Data.Boolean (kind Boolean)
 import App as App
+import Logger (log)
 
 data Kind = Happy | Neutral
 
@@ -21,18 +21,15 @@ happy = message Happy
 neutral :: String -> String
 neutral = message Neutral
 
-print :: String -> Effect Unit
-print msg = log $ "[PS] " <> msg
-
 main :: Effect Unit
 main = do
-  print $ happy "Stewart"
-  print $ neutral "Stewart"
+  log $ happy "Stewart"
+  log $ neutral "Stewart"
 
-  print $ Tasks.toJSON (Tasks.toTasks items)
-  print $ show $ Tasks.fromJSON json
-  print $ Todos.toJSON items
-  print $ show $ Todos.fromJSON json
+  log $ Tasks.toJSON (Tasks.toTasks items)
+  log $ show $ Tasks.fromJSON json
+  log $ Todos.toJSON items
+  log $ show $ Todos.fromJSON json
 
   App.main
 

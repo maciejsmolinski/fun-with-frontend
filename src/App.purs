@@ -3,12 +3,9 @@ module App where
 import Prelude
 
 import Effect (Effect)
-import Effect.Console (log)
 import History as History
 import Location as Location
-
-print :: String -> Effect Unit
-print msg = log $ "[PS] " <> msg
+import Logger as Logger
 
 data Route = Home | NotFound
 
@@ -19,14 +16,8 @@ toRoute _ = NotFound
 render :: Route -> Effect Unit
 render =
   case _ of
-    Home -> renderHome
-    NotFound -> renderNotFound
-  where
-    renderHome :: Effect Unit
-    renderHome = print "Home Route"
-
-    renderNotFound :: Effect Unit
-    renderNotFound = print "Route Not Found"
+    Home -> Logger.log "Home Route"
+    NotFound -> Logger.log "Route Not Found"
 
 type App = { onRoute :: String -> Effect Unit }
 

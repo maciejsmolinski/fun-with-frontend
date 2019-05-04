@@ -19,4 +19,5 @@ blocks:
             - cache restore bower_components-$SEMAPHORE_GIT_BRANCH-$(checksum bower.json),bower_components-$SEMAPHORE_GIT_BRANCH
             - npm run pulp build
             - npm run parcel build src/index.html
+            - cp dist/index.html dist/200.html
             - npm run surge dist fun-with-frontend.surge.sh

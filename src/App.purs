@@ -5,6 +5,7 @@ import Prelude
 import Effect (Effect)
 import Effect.Console (log)
 import Location as Location
+import History as History
 
 data Route = Home | NotFound
 
@@ -16,7 +17,7 @@ route "/" = Home
 route _ = NotFound
 
 redirect :: Route -> Effect Unit
-redirect Home = Location.setPathName "/"
+redirect Home = History.setPathName "/"
 redirect _ = pure unit
 
 render :: Route -> Effect Unit

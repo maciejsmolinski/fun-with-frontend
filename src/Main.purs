@@ -2,37 +2,37 @@ module Main where
 
 import Prelude
 
+import DateTime as DateTime
 import Effect (Effect)
-import Tasks as Tasks
-import Todos as Todos
-import Type.Data.Boolean (kind Boolean)
-import App as App
-import Logger (log)
+import Effect.Console as Console
 
-data Kind = Happy | Neutral
+class Monad m <= MonadLogger m where
+  info :: String -> m Unit
+  warn :: String -> m Unit
+  error :: String -> m Unit
 
-message :: Kind -> String -> String
-message Happy name = "Heyy " <> name <> "!"
-message Neutral name = "Mhm, hey " <> name <> ".."
+class Monad m <= MonadDateTime m where
+  currentDateTime :: m String
 
-happy :: String -> String
-happy = message Happy
+instance monadLogger :: MonadLogger Effect where
+  info :: String -> Effect Unit
+  info = Console.log <<< ((<>) "[INFO] ")
 
-neutral :: String -> String
-neutral = message Neutral
+  warn :: String -> Effect Unit
+  warn = Console.log <<< ((<>) "[WARN] ")
+
+  error :: String -> Effect Unit
+  error = Console.error <<< ((<>) "[ERR] ")
+
+instance monadDateTime :: MonadDateTime Effect where
+  currentDateTime = DateTime.currentDateTime
+
+app :: forall m. MonadLogger m => MonadDateTime m => m Unit
+app = do
+  info "Log from PureScript"
+  warn "Warn from PureScript"
+  error "Error from PureScript"
+  currentDateTime >>= info
 
 main :: Effect Unit
-main = do
-  log $ happy "Stewart"
-  log $ neutral "Stewart"
-
-  log $ Tasks.toJSON (Tasks.toTasks items)
-  log $ show $ Tasks.fromJSON json
-  log $ Todos.toJSON items
-  log $ show $ Todos.fromJSON json
-
-  App.main
-
-  where
-    items = [{ title: "Test", completed: false }]
-    json = """[{ "title": "test", "completed" : false }]"""
+main = app

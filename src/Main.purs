@@ -4,6 +4,7 @@ import Prelude
 
 import App as App
 import DateTime as DateTime
+import Demo as Demo
 import Effect (Effect)
 import Effect.Console as Console
 
@@ -36,4 +37,4 @@ application = do
   currentDateTime >>= info
 
 main :: Effect Unit
-main = application *> App.main
+main = Demo.main *> application *> App.main

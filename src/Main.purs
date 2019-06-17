@@ -2,6 +2,7 @@ module Main where
 
 import Prelude
 
+import App as App
 import DateTime as DateTime
 import Effect (Effect)
 import Effect.Console as Console
@@ -27,12 +28,12 @@ instance monadLogger :: MonadLogger Effect where
 instance monadDateTime :: MonadDateTime Effect where
   currentDateTime = DateTime.currentDateTime
 
-app :: forall m. MonadLogger m => MonadDateTime m => m Unit
-app = do
+application :: forall m. MonadLogger m => MonadDateTime m => m Unit
+application = do
   info "Log from PureScript"
   warn "Warn from PureScript"
   error "Error from PureScript"
   currentDateTime >>= info
 
 main :: Effect Unit
-main = app
+main = application *> App.main

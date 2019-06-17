@@ -17,10 +17,6 @@ npm run bower install
 
 ## Running the project
 
-Run the following to continuously compile the purescript code:
+Run the following command to continuously build PureScript code in the background, compile the application in the foreground and serve it under [`http://localhost:1234`](http://localhost:1234):
 
-* `npm run pulp --watch build`
-
-Run the following to continuously compile typescript code and serve the application under [`http://localhost:1234`](http://localhost:1234):
-
-* `npm run parcel serve src/index.html`
+* `npm run watch`

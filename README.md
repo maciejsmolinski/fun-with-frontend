@@ -17,6 +17,6 @@ npm run bower install
 
 ## Running the project
 
-Run the following command to continuously build PureScript code in the background, compile the application in the foreground and serve it under [`http://localhost:1234`](http://localhost:1234):
+Run the following command to continuously build PureScript code in the background, compile the Reason/TypeScript/JavaScript code in the foreground and serve the end result under [`http://localhost:1234`](http://localhost:1234):
 
 * `npm run watch`

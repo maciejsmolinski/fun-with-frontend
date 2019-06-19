@@ -17,6 +17,13 @@ import Web.HTML.Window as Window
 
 data Route = Home | Contact | NotFound
 
+instance showRoute :: Show Route where
+  show Home = "Home"
+  show Contact = "Contact"
+  show NotFound = "NotFound"
+
+derive instance eqRoute :: Eq Route
+
 toRoute :: String -> Route
 toRoute "/" = Home
 toRoute "/contact" = Contact

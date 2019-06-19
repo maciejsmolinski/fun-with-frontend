@@ -1,9 +1,9 @@
 module Test.Main where
 
-import Prelude
 import Effect (Effect)
-import Effect.Console (log)
+import Prelude
+import Test.App as TestApp
+
 
 main :: Effect Unit
-main = do
-  log "You should add some tests."
+main = TestApp.main

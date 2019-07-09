@@ -1,4 +1,4 @@
-module Demo (main) where
+module Demo (main, message, Kind(..)) where
 
 import Prelude
 

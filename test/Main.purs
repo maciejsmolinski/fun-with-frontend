@@ -1,9 +1,14 @@
 module Test.Main where
 
-import Effect (Effect)
 import Prelude
-import Test.App as TestApp
 
+import Effect (Effect)
+import Test.App as AppSpec
+import Test.Demo as DemoSpec
+import Test.Spec.Reporter.Console (consoleReporter)
+import Test.Spec.Runner (run)
 
 main :: Effect Unit
-main = TestApp.main
+main = run [consoleReporter] do
+  AppSpec.main
+  DemoSpec.main

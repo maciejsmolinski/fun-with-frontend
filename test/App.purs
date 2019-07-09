@@ -3,14 +3,11 @@ module Test.App (main) where
 import Prelude
 
 import App (Route(..), toRoute)
-import Effect (Effect)
-import Test.Spec (describe, it)
+import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
-import Test.Spec.Reporter.Console (consoleReporter)
-import Test.Spec.Runner (run)
 
-main :: Effect Unit
-main = run [consoleReporter] do
+main :: Spec Unit
+main = do
   describe "App" do
     describe "toRoute" do
       it "should return Contact for /contact" do

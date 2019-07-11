@@ -8,6 +8,16 @@ Languages involved:
 * [TypeScript](https://www.typescriptlang.org/)
 * [ReasonML](https://reasonml.github.io/)
 
+```js
+import PureScript from '../output/Main';
+import TypeScript from './Main.ts';
+import ReasonML from './Main.re';
+
+TypeScript.main();
+ReasonML.main();
+PureScript.main();
+```
+
 ## Installation instructions
 
 ```

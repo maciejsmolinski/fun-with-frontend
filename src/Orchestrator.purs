@@ -1,15 +1,14 @@
 module Orchestrator (makeCommand, Command, makeApp, Config, runApp, executable, class Executable) where
 
 import Data.Array ((:))
-import Data.Foldable (foldr)
+import Data.Foldable (foldr, traverse_)
 import Data.Function (($))
 import Data.Show (show)
 import Data.String (trim)
-import Data.Traversable (traverse)
 import Data.Unit (Unit)
 import Effect (Effect)
 import Logger (log)
-import Prelude (class Show, (<>))
+import Prelude (class Show, (<>), discard)
 
 class Executable a where
   executable :: a -> String
@@ -55,5 +54,8 @@ makeApp name commands = App { appName: name
                             , commands: commands
                             }
 
-runApp :: Config -> Effect (Array Unit)
-runApp (App config) = traverse runCommand (_.commands config)
+runApp :: Config -> Effect Unit
+runApp (App config) = do
+  log $ "(Orchestrator/run) " <> "run app \"" <> (_.appName config) <> "\""
+  traverse_ runCommand (_.commands config)
+  log $ "(Orchestrator/run) done"

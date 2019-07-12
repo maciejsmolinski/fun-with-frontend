@@ -38,7 +38,7 @@ application = do
   currentDateTime >>= info
 
 main :: Effect Unit
-main = Demo.main *> application *> App.main *> (void $ runApp app)
+main = Demo.main *> application *> App.main *> (runApp app)
 
 app :: Config
 app = makeApp "test" [ makeCommand "git" ["status"]

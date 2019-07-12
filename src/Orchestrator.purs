@@ -3,6 +3,8 @@ module Orchestrator (makeCommand, Command, makeApp, Config, runApp, executable, 
 import Data.Array ((:))
 import Data.Foldable (foldr, traverse_)
 import Data.Function (($))
+import Data.Generic.Rep (class Generic)
+import Data.Generic.Rep.Show (genericShow)
 import Data.Show (show)
 import Data.String (trim)
 import Data.Unit (Unit)
@@ -24,22 +26,19 @@ data Config = App { appName :: String
                   , commands :: Array Command
                   }
 
+derive instance genericCommand :: Generic Command _
+
+derive instance genericConfig :: Generic Config _
+
+instance showConfig :: Show Config where
+  show = genericShow
+
 instance executableCommand :: Executable Command where
   executable :: Command -> String
   executable (Command program args) = trim $ foldr (\xs x -> xs <> " " <> x) "" (program : args)
 
 instance showCommand :: Show Command where
-  show :: Command -> String
-  show command = "Command (" <> executable command  <> ")"
-
-instance showConfig :: Show Config where
-  show :: Config -> String
-  show (App opts) = "Config (App ("
-                    <> "\n  appName=" <> _.appName opts <> ","
-                    <> "\n  appHash=****" <> ","
-                    <> "\n  dir=" <> _.dir opts <> ","
-                    <> "\n  commands=" <> show (_.commands opts)
-                    <> "\n))"
+  show = genericShow
 
 makeCommand :: Program -> Args -> Command
 makeCommand program args = Command program args

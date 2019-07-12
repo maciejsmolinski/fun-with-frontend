@@ -7,6 +7,7 @@ import DateTime as DateTime
 import Demo as Demo
 import Effect (Effect)
 import Effect.Console as Console
+import Orchestrator (Config, makeApp, makeCommand, runApp)
 
 class Monad m <= MonadLogger m where
   info :: String -> m Unit
@@ -37,4 +38,9 @@ application = do
   currentDateTime >>= info
 
 main :: Effect Unit
-main = Demo.main *> application *> App.main
+main = Demo.main *> application *> App.main *> (void $ runApp app)
+
+app :: Config
+app = makeApp "test" [ makeCommand "git" ["status"]
+                     , makeCommand "pwd" []
+                     ]

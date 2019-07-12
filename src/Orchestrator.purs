@@ -1,10 +1,14 @@
-module Orchestrator (makeCommand, Command, executable, class Executable) where
+module Orchestrator (makeCommand, Command, makeApp, Config, runApp, executable, class Executable) where
 
 import Data.Array ((:))
 import Data.Foldable (foldr)
 import Data.Function (($))
 import Data.Show (show)
 import Data.String (trim)
+import Data.Traversable (traverse)
+import Data.Unit (Unit)
+import Effect (Effect)
+import Logger (log)
 import Prelude (class Show, (<>))
 
 class Executable a where
@@ -40,3 +44,16 @@ instance showConfig :: Show Config where
 
 makeCommand :: Program -> Args -> Command
 makeCommand program args = Command program args
+
+runCommand :: Command -> Effect Unit
+runCommand command = log $ "(Orchestrator/execute) " <> executable command
+
+makeApp :: String -> Array Command -> Config
+makeApp name commands = App { appName: name
+                            , appHash: "****"
+                            , dir: "/"
+                            , commands: commands
+                            }
+
+runApp :: Config -> Effect (Array Unit)
+runApp (App config) = traverse runCommand (_.commands config)

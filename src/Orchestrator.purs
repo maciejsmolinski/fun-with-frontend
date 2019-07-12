@@ -62,7 +62,7 @@ makeApp name commands = App { appName: name
 runApp :: Config -> Effect Unit
 runApp (App config) = do
   logRun $ "run app \"" <> config.appName <> "\""
-  traverse_ runCommand (_.commands config)
+  traverse_ runCommand config.commands
   logRun "done"
 
 log :: Phase -> String -> Effect Unit

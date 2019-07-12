@@ -43,4 +43,5 @@ main = Demo.main *> application *> App.main *> (void $ runApp app)
 app :: Config
 app = makeApp "test" [ makeCommand "git" ["status"]
                      , makeCommand "pwd" []
+                     , makeCommand "echo" ["\"done\""]
                      ]
